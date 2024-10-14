@@ -1,0 +1,11 @@
+{
+  "name": "@castle-labs-llc/react-native-use-app-lifecycle",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
