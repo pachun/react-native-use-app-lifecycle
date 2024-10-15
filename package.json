@@ -6,6 +6,7 @@
     "build": "tsc"
   },
   "devDependencies": {
+    "prettier": "^3.3.3",
     "typescript": "^5.6.3"
   }
 }
