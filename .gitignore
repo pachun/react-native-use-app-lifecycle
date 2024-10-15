@@ -1,2 +1,8 @@
+# deps (function of checked in package.json)
 node_modules
+
+# ts -> js output (function of checked in typescript code)
 lib
+
+# coverage reports (function of jest --collectCoverage)
+coverage

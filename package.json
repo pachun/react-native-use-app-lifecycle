@@ -1,20 +1,55 @@
 {
-  "name": "@castle-labs-llc/react-native-use-app-lifecycle",
+  "name": "@pachun/react-native-use-app-lifecycle",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "React Native hook to run onLaunch, onFocus and onBlur callbacks",
+  "keywords": [
+    "react-native",
+    "react",
+    "native",
+    "lifecycle",
+    "hook",
+    "launch",
+    "focus",
+    "blur"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pachun/react-native-use-app-lifecycle.git"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "jest --collectCoverage"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.8",
+    "@babel/preset-env": "^7.25.8",
+    "@babel/preset-typescript": "^7.25.7",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/react-native": "^12.7.2",
+    "@types/jest": "^29.5.13",
+    "@types/react": "^18.3.11",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.57.0",
     "eslint-config-expo": "^7.1.2",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "expo": "^51.0.37",
+    "jest": "^29.7.0",
+    "jest-expo": "^51.0.4",
+    "metro-react-native-babel-preset": "^0.77.0",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
+    "react-native": "^0.75.4",
+    "ts-node": "^10.9.2",
     "typescript": "5.5.2"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "peerDependencies": {
+    "react-native": ">=0.74.0",
+    "react": ">=18.0.0"
+  }
 }
