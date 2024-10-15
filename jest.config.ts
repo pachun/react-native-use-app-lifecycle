@@ -15,22 +15,6 @@ const setupFiles = async (): Promise<string[]> => {
   )
 }
 
-// const projectPresets = ["react-native"]
-// const projects = async (): Promise<
-//   { preset: string; setupFilesAfterEnv: string[]; setupFiles: string[] }[]
-// > => {
-//   return await Promise.all(
-//     projectPresets.map(async preset => ({
-//       preset,
-//       setupFilesAfterEnv: await setupFilesAfterEnv(),
-//       setupFiles: await setupFiles(),
-//     })),
-//   )
-// }
-
-// const transformIgnorePatterns = [
-//   "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)",
-// ]
 const transformIgnorePatterns = [
   "node_modules/(?!(@react-native|react-native)/)",
 ]
@@ -57,7 +41,7 @@ export default async (): Promise<Config> => {
       },
     ],
     transform: {
-      "^.+\\.(ts|tsx|js|jsx)$": "babel-jest", // Ensure Babel is used to transpile both JS and TS files
+      "^.+\\.(ts|tsx|js|jsx)$": "babel-jest",
     },
     transformIgnorePatterns,
     coverageProvider: "v8",
