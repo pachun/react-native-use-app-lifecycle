@@ -17,10 +17,20 @@ jobs:
       - run: yarn lint
       - run: yarn build
       - run: yarn test
+      - run: |
+          git fetch origin main
+          git show origin/main:package.json > package.json.previous
+          previous_version=$(jq -r '.version' package.json.previous)
+          current_version=$(jq -r '.version' package.json)
+          if [ "$current_version" != "$previous_version" ]; then
+            echo "version_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "version_changed=false" >> $GITHUB_OUTPUT
+          fi
 
   publish:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && needs.check.outputs.version_changed == 'true'
     needs: check
     steps:
       - uses: actions/checkout@v4
