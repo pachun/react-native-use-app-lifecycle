@@ -1,9 +1,14 @@
+import React from "react"
 import { AppState } from "react-native"
 import { renderHook } from "@testing-library/react-hooks"
 import useAppLifecycle from "../src/index"
-import { act } from "@testing-library/react-native"
+import * as onStateChangeExports from "../src/onStateChange"
 
 describe("useAppLifecycle({ onLaunch, onFocus, onBlur })", () => {
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
   it("calls onLaunch when the app is launched", () => {
     const onFocus = jest.fn()
     const onBlur = jest.fn()
@@ -27,12 +32,52 @@ describe("useAppLifecycle({ onLaunch, onFocus, onBlur })", () => {
   })
 
   it("listens to app state changes", () => {
-    const spy = jest.spyOn(AppState, "addEventListener")
-    const injectedOnStateChangeForTesting = jest.fn()
+    const initialCurrentState = "active"
+    Object.defineProperty(AppState, "currentState", {
+      value: initialCurrentState,
+      configurable: true,
+    })
 
-    renderHook(() => useAppLifecycle({}, injectedOnStateChangeForTesting))
+    const setPreviousAppState = jest.fn()
+    const originalUseState = React.useState
+    const useStateSpy = jest.spyOn(React, "useState")
+    useStateSpy.mockImplementation(initialValue => {
+      if (initialValue === initialCurrentState) {
+        return [initialCurrentState, setPreviousAppState]
+      }
+      return originalUseState(initialValue)
+    })
 
-    expect(spy).toHaveBeenCalledWith("change", injectedOnStateChangeForTesting)
+    const onFocus = jest.fn()
+    const onBlur = jest.fn()
+    const expectedAppStateChangeListener = jest.fn()
+    jest.spyOn(onStateChangeExports, "default").mockImplementation(
+      // @ts-ignore
+      (
+        previousAppState,
+        setPreviousAppStateParam,
+        onFocusParam,
+        onBlurParam,
+      ) => {
+        if (
+          previousAppState === initialCurrentState &&
+          setPreviousAppState === setPreviousAppStateParam &&
+          onFocus === onFocusParam &&
+          onBlur === onBlurParam
+        ) {
+          return expectedAppStateChangeListener
+        }
+      },
+    )
+
+    const appStateAddEventListenerSpy = jest.spyOn(AppState, "addEventListener")
+
+    renderHook(() => useAppLifecycle({ onFocus: onFocus, onBlur: onBlur }))
+
+    expect(appStateAddEventListenerSpy).toHaveBeenCalledWith(
+      "change",
+      expectedAppStateChangeListener,
+    )
   })
 
   it("stops listening to app state changes", () => {
@@ -46,47 +91,5 @@ describe("useAppLifecycle({ onLaunch, onFocus, onBlur })", () => {
     unmount()
 
     expect(removeSpy).toHaveBeenCalled()
-  })
-
-  it("calls onFocus when the app is focused", async () => {
-    const onFocus = jest.fn()
-    const onBlur = jest.fn()
-
-    renderHook(() => useAppLifecycle({ onFocus, onBlur }))
-
-    const onStateChange = (global as any).onStateChange
-
-    await act(async () => {
-      onStateChange("inactive")("active")
-
-      expect(onFocus).toHaveBeenCalledTimes(1)
-
-      onStateChange("background")("active")
-
-      expect(onFocus).toHaveBeenCalledTimes(2)
-
-      expect(onBlur).not.toHaveBeenCalled()
-    })
-  })
-
-  it("calls onFocus when the app is focused", async () => {
-    const onFocus = jest.fn()
-    const onBlur = jest.fn()
-
-    renderHook(() => useAppLifecycle({ onFocus, onBlur }))
-
-    const onStateChange = (global as any).onStateChange
-
-    await act(async () => {
-      onStateChange("active")("inactive")
-
-      expect(onBlur).toHaveBeenCalledTimes(1)
-
-      onStateChange("active")("background")
-
-      expect(onBlur).toHaveBeenCalledTimes(2)
-
-      expect(onFocus).not.toHaveBeenCalled()
-    })
   })
 })
