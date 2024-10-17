@@ -1,6 +1,6 @@
-# useAppLifecycle
-
 [![npm version](https://img.shields.io/npm/v/@pachun/react-native-use-app-lifecycle.svg)](https://www.npmjs.com/package/@pachun/react-native-use-app-lifecycle)
+
+# useAppLifecycle
 
 A react native hook to run code when your app is launched, focused and blurred.
 
