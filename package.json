@@ -22,7 +22,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint src",
-    "test": "jest --collectCoverage"
+    "test": "jest"
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^8.0.1",
