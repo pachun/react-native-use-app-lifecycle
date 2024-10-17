@@ -1,6 +1,6 @@
 {
   "name": "@pachun/react-native-use-app-lifecycle",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "license": "MIT",
   "description": "React Native hook to run onLaunch, onFocus and onBlur callbacks",
   "keywords": [
@@ -19,6 +19,11 @@
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "lint": "eslint src",
