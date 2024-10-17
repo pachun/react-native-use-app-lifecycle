@@ -6,6 +6,8 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    outputs:
+      version_changed: ${{ steps.version.outputs.version_changed }}
 
     steps:
       - uses: actions/checkout@v4
@@ -17,9 +19,11 @@ jobs:
       - run: yarn lint
       - run: yarn build
       - run: yarn test
-      - run: |
-          git fetch origin main
-          git show origin/main:package.json > package.json.previous
+      - id: version
+        run: |
+          git fetch origin main --depth=2
+          previous_commit=$(git rev-parse origin/main^1)
+          git show $previous_commit:package.json > package.json.previous
           previous_version=$(jq -r '.version' package.json.previous)
           current_version=$(jq -r '.version' package.json)
           if [ "$current_version" != "$previous_version" ]; then
