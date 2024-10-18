@@ -1,4 +1,5 @@
 [![npm version](https://img.shields.io/npm/v/@pachun/react-native-use-app-lifecycle.svg)](https://www.npmjs.com/package/@pachun/react-native-use-app-lifecycle)
+[![cov](https://pachun.github.io/react-native-use-app-lifecycle/badges/coverage.svg)](https://github.com/pachun/react-native-use-app-lifecycle/actions)
 
 # useAppLifecycle
 

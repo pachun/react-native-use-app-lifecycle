@@ -47,5 +47,6 @@ export default async (): Promise<Config> => {
     coverageProvider: "v8",
     collectCoverageFrom,
     coverageThreshold,
+    coverageReporters: ["json-summary", "text", "lcov"],
   }
 }
