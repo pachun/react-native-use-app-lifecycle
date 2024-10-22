@@ -4,7 +4,8 @@
     "strict": true,
     "noEmit": false,
     "outDir": "lib",
-    "declaration": true
+    "declaration": true,
+    "module": "CommonJS"
   },
 
   "include": ["src/**/*"]
