@@ -6,3 +6,6 @@ lib
 
 # coverage reports (function of jest --collectCoverage)
 coverage
+
+# folder .vscode with personal settings
+.vscode
