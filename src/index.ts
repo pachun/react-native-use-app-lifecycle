@@ -1,6 +1,5 @@
 import React, { useRef } from "react"
 import { AppState, AppStateStatus } from "react-native"
-import onStateChange from "./onStateChange"
 
 export type TypeEventCallback = (() => void) | (() => Promise<void>)
 type TypeUseAppLifecycleParams = Partial<
@@ -12,22 +11,25 @@ export function useAppLifecycle({
   onFocus,
   onBlur,
 }: TypeUseAppLifecycleParams) {
-  const onLaunchMemorized = useRef(onLaunch)
+  const onLaunchRef = useRef(onLaunch)
+  const onBlurRef = useRef(onBlur)
+  const onFocusRef = useRef(onFocus)
   React.useEffect(() => {
-    onLaunchMemorized.current?.()
-  }, [onLaunchMemorized])
-
-  const [previousAppState, setPreviousAppState] =
-    React.useState<AppStateStatus>(AppState.currentState)
+    onLaunchRef.current?.()
+  }, [])
 
   React.useEffect(() => {
+    function _handlerAppStateChange(state: AppStateStatus) {
+      if (state === "inactive" || state === "background") onBlurRef.current?.()
+      if (state === "active") onFocusRef.current?.()
+    }
     const subscription = AppState.addEventListener(
       "change",
-      onStateChange(previousAppState, setPreviousAppState, onFocus, onBlur),
+      _handlerAppStateChange,
     )
 
     return () => {
       subscription.remove()
     }
-  }, [onFocus, onBlur, previousAppState])
+  }, [])
 }
