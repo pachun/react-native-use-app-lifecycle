@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef } from "react"
 import { AppState, AppStateStatus } from "react-native"
 import onStateChange from "./onStateChange"
 
@@ -15,14 +15,10 @@ const useAppLifecycle = ({
   onFocus?: OnFocus
   onBlur?: OnBlur
 }) => {
-  const [hasLaunched, setHasLaunched] = React.useState(false)
-
+  const onLaunchMemorized = useRef(onLaunch)
   React.useEffect(() => {
-    if (!hasLaunched && onLaunch) {
-      setHasLaunched(true)
-      onLaunch()
-    }
-  }, [hasLaunched, onLaunch])
+    onLaunchMemorized.current?.()
+  }, [onLaunchMemorized])
 
   const [previousAppState, setPreviousAppState] =
     React.useState<AppStateStatus>(AppState.currentState)
