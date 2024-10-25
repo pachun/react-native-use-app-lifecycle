@@ -2,13 +2,16 @@ import React, { useRef } from "react"
 import { AppState, AppStateStatus } from "react-native"
 import onStateChange from "./onStateChange"
 
-type TypeEventCallback = (() => void) | (() => Promise<void>)
+export type TypeEventCallback = (() => void) | (() => Promise<void>)
+type TypeUseAppLifecycleParams = Partial<
+  Record<"onLaunch" | "onFocus" | "onBlur", TypeEventCallback>
+>
 
-const useAppLifecycle = ({
+export function useAppLifecycle({
   onLaunch,
   onFocus,
   onBlur,
-}: Partial<Record<"onLaunch" | "onFocus" | "onBlur", TypeEventCallback>>) => {
+}: TypeUseAppLifecycleParams) {
   const onLaunchMemorized = useRef(onLaunch)
   React.useEffect(() => {
     onLaunchMemorized.current?.()
@@ -28,5 +31,3 @@ const useAppLifecycle = ({
     }
   }, [onFocus, onBlur, previousAppState])
 }
-
-export default useAppLifecycle

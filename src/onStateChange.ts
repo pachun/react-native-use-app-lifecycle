@@ -1,5 +1,5 @@
 import { AppStateStatus } from "react-native"
-import { OnBlur, OnFocus } from "./index"
+import { TypeEventCallback } from "./index"
 
 const isFocused = (appState: AppStateStatus): boolean => {
   return appState === "active"
@@ -13,8 +13,8 @@ const onStateChange =
   (
     previousAppState: AppStateStatus,
     setPreviousAppState: React.Dispatch<React.SetStateAction<AppStateStatus>>,
-    onFocus?: OnFocus,
-    onBlur?: OnBlur,
+    onFocus?: TypeEventCallback,
+    onBlur?: TypeEventCallback,
   ) =>
   (currentAppState: AppStateStatus) => {
     if (onFocus && isBlurred(previousAppState) && isFocused(currentAppState)) {
