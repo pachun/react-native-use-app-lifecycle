@@ -16,7 +16,7 @@ yarn add @pachun/react-native-use-app-lifecycle
 In your topmost-level component:
 
 ```tsx
-import useAppLifecycle from "@pachun/react-native-use-app-lifecycle"
+import { useAppLifecycle } from "@pachun/react-native-use-app-lifecycle"
 
 const App = () => {
   useAppLifecycle({
