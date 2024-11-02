@@ -37,7 +37,7 @@ I've been copying and pasting this code into all my RN projects for a long time.
 
 ## Contributing
 
-PRs are exciting 🤟 Bump the version number in `package.json` and open some.
+PRs are exciting 🤟 Bump the version number in `package.json` and open one.
 
 - Please do not submit AI generated pull requests.
 - Please keep coverage at or above where it is when you clone the repo (`yarn test --collectCoverage`).
