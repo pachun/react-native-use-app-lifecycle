@@ -33,7 +33,7 @@ export default App
 
 ## Motivation
 
-I've been copying and pasting this code into all my RN projects for a long time. Usually, I use it [to check for and download Over-The-Air (OTA) expo updates](https://docs.expo.dev/versions/latest/sdk/updates/).
+I've been copying and pasting this code into all my RN projects for a long time. Usually, I use it [to check for and download Over-The-Air (OTA) expo updates](https://github.com/pachun/simple-expo-update).
 
 ## Contributing
 
