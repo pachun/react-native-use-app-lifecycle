@@ -39,7 +39,7 @@ I use this package [to check for and download Over-The-Air (OTA) expo updates](h
 
 ## Tests
 
-```typescriptreact
+```tsx
 import { renderRouter, act } from "expo-router/testing-library"
 import useAppLifecycle from "@pachun/react-native-use-app-lifecycle"
 
