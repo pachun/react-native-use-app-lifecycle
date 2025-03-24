@@ -33,7 +33,7 @@ export default App
 
 ## Motivation
 
-Test driving code is nice. [Writing tests for ref code](https://reactnative.dev/docs/appstate) sucks. Use this package to avoid TDDing ref code and improve the readability of your test _a little bit_.
+Test driving code is nice. Writing tests for [ref code](https://reactnative.dev/docs/appstate) sucks. Use this package to avoid TDDing ref code and improve the readability of your tests _a little bit_.
 
 I use this package [to check for and download Over-The-Air (OTA) expo updates](https://github.com/pachun/simple-expo-update).
 
