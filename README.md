@@ -57,7 +57,7 @@ describe("foregrounding the application", () => {
 
     renderRouter("src/app", { initialUrl: "/" })
 
-    await act(triggerAppForeground!)
+    await act(() => triggerAppForeground!)
 
     // expect stuff
   })
