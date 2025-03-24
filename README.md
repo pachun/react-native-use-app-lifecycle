@@ -33,7 +33,36 @@ export default App
 
 ## Motivation
 
-I've been copying and pasting this code into all my RN projects for a long time. Usually, I use it [to check for and download Over-The-Air (OTA) expo updates](https://github.com/pachun/simple-expo-update).
+Test driving code is nice. [Writing tests for ref code](https://reactnative.dev/docs/appstate) sucks. Use this package to avoid TDDing ref code and improve the readability of your test _a little bit_.
+
+I use this package [to check for and download Over-The-Air (OTA) expo updates](https://github.com/pachun/simple-expo-update).
+
+## Tests
+
+```typescriptreact
+import { renderRouter, act } from "expo-router/testing-library"
+import useAppLifecycle from "@pachun/react-native-use-app-lifecycle"
+
+jest.mock("@pachun/react-native-use-app-lifecycle", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}))
+
+describe("foregrounding the application", () => {
+  it("does stuff", async () => {
+    let triggerAppForeground
+    jest.mocked(useAppLifecycle).mockImplementation(({ onFocus }) => {
+      triggerAppForeground = onFocus
+    })
+
+    renderRouter("src/app", { initialUrl: "/" })
+
+    await act(triggerAppForeground!)
+
+    // expect stuff
+  })
+})
+```
 
 ## Contributing
 
