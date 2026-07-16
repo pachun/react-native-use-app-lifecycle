@@ -40,17 +40,19 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && needs.check.outputs.version_changed == 'true'
     needs: check
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "18.x"
-          registry-url: "https://registry.npmjs.org"
-          # Defaults to the user or organization that owns the workflow file
-          scope: "@octocat"
+          node-version: "24.x"
       - uses: oven-sh/setup-bun@v2
       - run: bun install
       - run: bun run build
-      - run: bun publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm install -g npm@latest
+      # bun is the package manager everywhere else, but it cannot do OIDC
+      # trusted publishing, so npm authenticates through GitHub's OIDC token
+      # — no stored secret — and runs the one publish step.
+      - run: npm publish
