@@ -1,6 +1,6 @@
 {
   "name": "@pachun/react-native-use-app-lifecycle",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "React Native hook to run onLaunch, onFocus and onBlur callbacks",
   "keywords": [
@@ -27,6 +27,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint src",
+    "prettier": "prettier --check .",
     "test": "jest"
   },
   "devDependencies": {
@@ -35,8 +36,8 @@
     "@types/jest": "^29.5.13",
     "@types/react": "^18.3.11",
     "babel-jest": "^29.7.0",
-    "eslint": "^8.57.0",
-    "eslint-config-expo": "^7.1.2",
+    "eslint": "^8.57.1",
+    "eslint-config-expo": "~56.0.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "expo": "^51.0.38",

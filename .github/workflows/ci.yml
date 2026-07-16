@@ -14,11 +14,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "18.x"
+      - uses: oven-sh/setup-bun@v2
 
-      - run: yarn
-      - run: yarn lint
-      - run: yarn build
-      - run: yarn test --collectCoverage
+      - run: bun install
+      - run: bun run lint
+      - run: bun run prettier
+      - run: bun run build
+      - run: bun run test --collectCoverage
       - if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
         uses: we-cli/coverage-badge-action@main
       - id: version
@@ -46,8 +48,9 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           # Defaults to the user or organization that owns the workflow file
           scope: "@octocat"
-      - run: yarn
-      - run: yarn build
-      - run: yarn publish
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bun run build
+      - run: bun publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

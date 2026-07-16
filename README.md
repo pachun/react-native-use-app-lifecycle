@@ -31,6 +31,10 @@ const App = () => {
 export default App
 ```
 
+`onLaunch` runs once, when the hook first mounts. `onFocus` and `onBlur` run on the
+transitions to and from the foreground — and `onFocus` is debounced ~100ms, so a burst
+of blur/focus events (a lock-screen flicker, Control Center) fires it once.
+
 ## Motivation
 
 Test driving code is nice. Writing tests for [ref code](https://reactnative.dev/docs/appstate) sucks. Use this package to avoid TDDing ref code and improve the readability of your tests _a little bit_.
@@ -68,5 +72,4 @@ describe("foregrounding the application", () => {
 
 PRs are exciting 🤟 Bump the version number in `package.json` and open one.
 
-- Please do not submit AI generated pull requests.
 - Please keep coverage at or above where it is when you clone the repo (`yarn test --collectCoverage`).
