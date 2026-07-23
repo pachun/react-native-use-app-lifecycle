@@ -35,7 +35,8 @@ export default App
 transitions to and from the foreground — and `onFocus` is debounced ~100ms, so a burst
 of blur/focus events (a lock-screen flicker, Control Center) fires it once.
 
-> [!TIP] I use this package [to check for and download Over-The-Air (OTA) expo updates](https://github.com/pachun/simple-expo-update).
+> [!TIP]
+> I use this package [to check for and download Over-The-Air (OTA) expo updates](https://github.com/pachun/simple-expo-update).
 
 ## Motivation
 
@@ -64,7 +65,8 @@ describe("foregrounding the application", () => {
 `launchTheApp` takes whatever renders your app; `renderRouter`, `render`,
 `renderHook`.
 
-> [!NOTE] It's jest-only, and it uses `act` from `@testing-library/react-native` — which
+> [!NOTE]
+> It's jest-only, and it uses `act` from `@testing-library/react-native` — which
 > you already have if you're testing with `expo-router/testing-library`.
 
 ## Contributing
