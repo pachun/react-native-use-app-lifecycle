@@ -8,7 +8,7 @@ export type OnLaunch = () => void
 export type OnFocus = () => void
 export type OnBlur = () => void
 
-const onFocusDebounceMilliseconds = 100
+export const onFocusDebounceMilliseconds = 100
 
 const useAppLifecycle = ({
   onLaunch,

@@ -35,38 +35,37 @@ export default App
 transitions to and from the foreground — and `onFocus` is debounced ~100ms, so a burst
 of blur/focus events (a lock-screen flicker, Control Center) fires it once.
 
+> [!TIP] I use this package [to check for and download Over-The-Air (OTA) expo updates](https://github.com/pachun/simple-expo-update).
+
 ## Motivation
 
-Test driving code is nice. Writing tests for [ref code](https://reactnative.dev/docs/appstate) sucks. Use this package to avoid TDDing ref code and improve the readability of your tests _a little bit_.
-
-I use this package [to check for and download Over-The-Air (OTA) expo updates](https://github.com/pachun/simple-expo-update).
+[ref code](https://reactnative.dev/docs/appstate) ruins behavior driven development. Use this package to make your tests tell a coherent story.
 
 ## Tests
 
 ```tsx
-import { renderRouter, act } from "expo-router/testing-library"
-import useAppLifecycle from "@pachun/react-native-use-app-lifecycle"
-
-jest.mock("@pachun/react-native-use-app-lifecycle", () => ({
-  __esModule: true,
-  default: jest.fn(),
-}))
+import { renderRouter, waitFor, screen } from "expo-router/testing-library"
+import launchTheApp from "@pachun/react-native-use-app-lifecycle/testing"
 
 describe("foregrounding the application", () => {
-  it("does stuff", async () => {
-    let triggerAppForeground
-    jest.mocked(useAppLifecycle).mockImplementation(({ onFocus }) => {
-      triggerAppForeground = onFocus
-    })
+  it("refreshes the inbox", async () => {
+    const { backgroundTheApp, foregroundTheApp } = launchTheApp(() =>
+      renderRouter("src/app", { initialUrl: "/" }),
+    )
 
-    renderRouter("src/app", { initialUrl: "/" })
+    backgroundTheApp()
+    foregroundTheApp()
 
-    await act(() => triggerAppForeground!)
-
-    // expect stuff
+    await waitFor(() => expect(screen.getByText("1 new email")).toBeTruthy())
   })
 })
 ```
+
+`launchTheApp` takes whatever renders your app; `renderRouter`, `render`,
+`renderHook`.
+
+> [!NOTE] It's jest-only, and it uses `act` from `@testing-library/react-native` — which
+> you already have if you're testing with `expo-router/testing-library`.
 
 ## Contributing
 

@@ -1,6 +1,6 @@
 {
   "name": "@pachun/react-native-use-app-lifecycle",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "license": "MIT",
   "description": "React Native hook to run onLaunch, onFocus and onBlur callbacks",
   "keywords": [
@@ -19,6 +19,17 @@
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./testing": {
+      "types": "./lib/testing.d.ts",
+      "default": "./lib/testing.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "lib",
     "LICENSE",
@@ -52,7 +63,13 @@
   },
   "dependencies": {},
   "peerDependencies": {
+    "@testing-library/react-native": ">=12.0.0",
     "react": ">=18.0.0",
     "react-native": ">=0.74.0"
+  },
+  "peerDependenciesMeta": {
+    "@testing-library/react-native": {
+      "optional": true
+    }
   }
 }
