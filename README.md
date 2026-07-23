@@ -40,7 +40,7 @@ of blur/focus events (a lock-screen flicker, Control Center) fires it once.
 
 ## Tests
 
-They should tell a coherent, ([ref-free](https://reactnative.dev/docs/appstate)) story.
+They should tell a coherent, [ref-free](https://reactnative.dev/docs/appstate) story.
 
 ```tsx
 import { renderRouter, waitFor, screen } from "expo-router/testing-library"
