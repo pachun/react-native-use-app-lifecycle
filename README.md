@@ -38,11 +38,9 @@ of blur/focus events (a lock-screen flicker, Control Center) fires it once.
 > [!TIP]
 > I use this package [to check for and download Over-The-Air (OTA) expo updates](https://github.com/pachun/simple-expo-update).
 
-## Motivation
-
-[ref code](https://reactnative.dev/docs/appstate) ruins behavior driven development. Use this package to make your tests tell a coherent story.
-
 ## Tests
+
+They should tell a coherent, ([ref-free](https://reactnative.dev/docs/appstate)) story.
 
 ```tsx
 import { renderRouter, waitFor, screen } from "expo-router/testing-library"
