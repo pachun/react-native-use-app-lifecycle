@@ -81,6 +81,27 @@ describe("launchTheApp", () => {
     expect(onFocus).toHaveBeenCalledTimes(1)
   })
 
+  it("refuses to background an app that is already backgrounded", () => {
+    const { backgroundTheApp } = launchTheApp(() =>
+      renderHook(() => useAppLifecycle({})),
+    )
+    backgroundTheApp()
+
+    expect(backgroundTheApp).toThrow(
+      "Can't background the app because it's already backgrounded.",
+    )
+  })
+
+  it("refuses to foreground an app that is already in the foreground", () => {
+    const { foregroundTheApp } = launchTheApp(() =>
+      renderHook(() => useAppLifecycle({})),
+    )
+
+    expect(foregroundTheApp).toThrow(
+      "Can't foreground the app because it's already in the foreground. Background it first with backgroundTheApp().",
+    )
+  })
+
   it("stops sending app state changes to unmounted components", () => {
     const onBlur = jest.fn()
 

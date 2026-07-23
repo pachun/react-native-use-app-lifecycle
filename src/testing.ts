@@ -39,13 +39,26 @@ const launchTheApp = (renderTheApp: () => void) => {
   AppState.currentState = "active"
   renderTheApp()
 
-  const backgroundTheApp = () => act(() => changeAppStateTo("background"))
+  const backgroundTheApp = () => {
+    if (AppState.currentState === "active") {
+      return act(() => changeAppStateTo("background"))
+    }
+    throw new Error(
+      "Can't background the app because it's already backgrounded.",
+    )
+  }
 
-  const foregroundTheApp = () =>
-    act(() => {
-      changeAppStateTo("active")
-      settleTheFocusDebounce()
-    })
+  const foregroundTheApp = () => {
+    if (AppState.currentState !== "active") {
+      return act(() => {
+        changeAppStateTo("active")
+        settleTheFocusDebounce()
+      })
+    }
+    throw new Error(
+      "Can't foreground the app because it's already in the foreground. Background it first with backgroundTheApp().",
+    )
+  }
 
   return { backgroundTheApp, foregroundTheApp }
 }
